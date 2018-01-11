@@ -1,0 +1,228 @@
+Glenmark_Classwise_Customercoverage_Dashboard
+
+Select (a_dr_met_once+a_dr_met_twice+a_dr_met_thrice+a_dr_met_more_thrice) as totalclassa,(b_dr_met_once+b_dr_met_twice+b_dr_met_thrice+b_dr_met_more_thrice) as totalclassb,(c_dr_met_once+c_dr_met_twice+c_dr_met_thrice+c_dr_met_more_thrice) as totalclassc/*,totalclassaplus*/, ((a_dr_met_once+a_dr_met_twice+a_dr_met_thrice+a_dr_met_more_thrice)+ (b_dr_met_once+b_dr_met_twice+b_dr_met_thrice+b_dr_met_more_thrice) + (c_dr_met_once+c_dr_met_twice+c_dr_met_thrice+c_dr_met_more_thrice)) AS totalcoverage ,fieldstaff,month,concat(month,'_',year) as monthyear,
+case
+when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+from adminmis where userid in (28,32,41,43)  and year=2017 ORDER BY month ASC
+
+Glenmark_Classwise_TCFA_Dashboard
+
+Select ((a_dr_met_once+a_dr_met_twice+a_dr_met_thrice+a_dr_met_more_thrice)/(spl_a_drsinlist+rpl_a_drsinlist+tpl_a_drsinlist+qpl_a_drsinlist)) as total_coveragea,((b_dr_met_once+b_dr_met_twice+b_dr_met_thrice+b_dr_met_more_thrice)/(spl_b_drsinlist+rpl_b_drsinlist+tpl_b_drsinlist+qpl_b_drsinlist)) as total_coverageb,((c_dr_met_once+c_dr_met_twice+c_dr_met_thrice+c_dr_met_more_thrice)/(spl_c_drsinlist+rpl_c_drsinlist+tpl_c_drsinlist+qpl_c_drsinlist)) as total_coveragec,a_compliant_drs as compliance_a,b_compliant_drs as compliance_b,c_compliant_drs as compliance_c,(spl_a_drsinlist+rpl_a_drsinlist+tpl_a_drsinlist+qpl_a_drsinlist) as totalclassa,(spl_b_drsinlist+rpl_b_drsinlist+tpl_b_drsinlist+qpl_b_drsinlist) as totalclassb,(spl_c_drsinlist+rpl_c_drsinlist+tpl_c_drsinlist+qpl_c_drsinlist) as totalclassc/*,totalclassaplus*/,
+ Round(((a_compliant_drs+b_compliant_drs+c_compliant_drs)/drsinlisttotal)*100) as total_compliance,fieldstaff,month,concat(month,'_',year) as monthyear,
+case
+ when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+from adminmis where userid in (28,32,41,43)
+  and year=2017 ORDER BY month ASC
+
+Glenmark_CustomerCoverage_Dashboard
+
+
+SELECT speciality as specialityid,specialityname,(spl_list+rpl_list+tpl_list+qpl_list+ppl_list+6pl_list) as totalDr,((spl_list+rpl_list+tpl_list+qpl_list+ppl_list+6pl_list)-(tot_spl_met+tot_rpl_met+tot_tpl_met+tot_qpl_met+tot_ppl_met+tot_6pl_met)) as totalMissed, 
+(tot_spl_met+tot_rpl_met+tot_tpl_met+tot_qpl_met+tot_ppl_met+tot_6pl_met) as totalMet,user_name as username,month,year,concat(month,'_',year) as monthyear,
+case
+ when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+FROM compliance_speciality where smownerid in (17,12431,12432,12433) and year=2017 ORDER BY year,month ASC
+
+Glenmark_Doctor_Call_Avg_Trendeffort_Dashboard
+
+SELECT ROUND(drcallavg,2) as dr_avg,year,concat(month,'_',year) as monthyear , ROUND((nooddrsmettotal/drsinlisttotal) * 100,2) as coverage,fieldstaff,month,
+case
+ when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+ FROM adminmis where userid in (17,12431,12432,12433) and year=2017 ORDER BY month ASC
+
+Glenmark_DrCallAvg_DrCoverage_TotalComplaince
+
+select adminmis.month,adminmis.year,fieldstaff,round((nooddrsmetspl+nooddrsmetrpl+nooddrsmettpl+nooddrsmetqpl+nooddrsmetppl+nooddrsmet6pl)/drsinlisttotal,2)*100 as totalcoverage,
+round(((a_compliant_drs+b_compliant_drs+c_compliant_drs)/drsinlisttotal) *100) as totalcomplaince,drcallavg as totalcallaverage,
+case
+ when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+from adminmis
+where userid in (17,12431,12432,12433) and month = 10 and year = '2017'
+
+
+Glenmark_Finalsummary_Dashboard
+
+select aipl_temp_target.*,aipl_temp_expense.total_expense,aipl_temp_gsp.total_tmp_unit,total_actual_dm_unit,total_planned_dm_unit from aipl_temp_target 
+inner join aipl_temp_expense on aipl_temp_target.id = aipl_temp_expense.id 
+inner join aipl_temp_gsp on aipl_temp_expense.id = aipl_temp_gsp.id 
+
+Glenmark_MonthlyExpense
+
+select id, concat_ws(' ',users.first_name,users.middle_name,users.last_name) as user_name,expensemain.month,expensemain.year,
+expensemain.finaltotalexpensesecondlevel as total_expense,
+case
+when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+from expensemain
+inner join users on expensemain.user_loginid = users.user_name
+where  expensemain.year = 2017 and expensemain.deleted = 0
+and users.id =12433 and expensemain.authorise = 3
+
+
+
+Glenmark_Planned VS Actual Dashboard
+
+
+select name,(fw_days+joint_fw_days) as planned_field_work,(act_fw_days+joint_fw_act_days) as actual_field_work,
+a_class_calls as planned_a_class_dr,b_class_calls as planned_b_class_dr,c_class_calls as planned_c_class_dr,
+a_class_act_calls as Actual_a_class_call,b_class_act_calls as Actual_b_class_call,c_class_act_calls as Actual_c_class_call,
+case
+when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+from planned_vs_actual 
+where userid in (2114,1894,1900,1991)  and month = 11 and year = 2017
+
+
+Glenmark_TerritoryTarget_Territory Sales
+
+select territory_primaryskuwise.month,territory_primaryskuwise.year,concat_ws(' ',users.first_name,users.middle_name,users.last_name) as user_name,sum(bud_val) as target_value,
+sum(act_val) as actual_value,
+case
+when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+from territory_primaryskuwise
+inner join patches on territory_primaryskuwise.territorycode = patches.patchsapcode
+inner join users on patches.patchid = users.patch 
+where patches.patch_deleted = 0 and users.id in (17,12431,12432,12433) and month = 10 and year = '2017'
+group by territory_primaryskuwise.territorycode,month,year
+
+
+Glenmark_Total_Doctors_MTD_Dashboard
+SELECT  drsinlisttotal,(spl_a_classcompliance+rpl_a_classcompliance+tpl_a_classcompliance+qpl_a_classcompliance+spl_b_classcompliance+rpl_b_classcompliance+tpl_b_classcompliance+qpl_b_classcompliance+spl_c_classcompliance+rpl_c_classcompliance+tpl_c_classcompliance+qpl_c_classcompliance) as drsexposed,nooddrsmettotal,
+ROUND(((spl_a_classcompliance+rpl_a_classcompliance+tpl_a_classcompliance+qpl_a_classcompliance+spl_b_classcompliance+rpl_b_classcompliance+tpl_b_classcompliance+qpl_b_classcompliance+spl_c_classcompliance+rpl_c_classcompliance+tpl_c_classcompliance+qpl_c_classcompliance)/drsinlisttotal)*100) as totalclm,
+ROUND(((spl_a_classcompliance+rpl_a_classcompliance+tpl_a_classcompliance+qpl_a_classcompliance+spl_b_classcompliance+rpl_b_classcompliance+tpl_b_classcompliance+qpl_b_classcompliance+spl_c_classcompliance+rpl_c_classcompliance+tpl_c_classcompliance+qpl_c_classcompliance)/nooddrsmettotal)*100) as totalmetclm,fieldstaff,month,year,
+concat(month,'_',year) as monthyear,
+case
+ when month=1 then 'Jan'
+when month=2 then 'Feb'
+when month=3 then 'Mar'
+when month=4 then 'Apr'
+when month=5 then 'May'
+when month=6 then 'Jun'
+when month=7 then 'Jul'
+when month=8 then 'Aug'
+when month=9 then 'Sep'
+when month=10 then 'Oct'
+when month=11 then 'Nov'
+when month=12 then 'Dec'
+end as "month1"
+ FROM adminmis where userid =12433 and year=2017 ORDER BY year,month ASC
+
+Glenmark_territorywise TMP DM
+
+select ROGSP_trend.fsocode,fsoname,GROUP_CONCAT(distinct actplanoct) as planned_activity,GROUP_CONCAT(distinct inpplanoct) as actual_activity,
+sum(tmpUnits) as total_tmp_unit,sum(actualoctunits) as total_actual_dm_unit,
+sum(planoctunits) as total_planned_dm_unit from ROGSP_trend
+inner join users on ROGSP_trend.fsocode = users.user_name 
+where users.id in
+(2374,
+2379,
+2381,
+2385
+) 
+group by users.id 
+
+Glenmark_territorywise_Sales_Dashboard
+
+SELECT month, year as fyear, sum(bud_val),sum(act_val),patches.patchname as territory_name
+ FROM territory_primaryskuwise inner join patches on territory_primaryskuwise.territorycode = patches.patchsapcode
+inner join users on patches.patchid = users.patch 
+where patches.patch_deleted = 0 and users.id in (18,19,20,13388) and year=2017
+group by territory_primaryskuwise.territorycode,month,year;
+
+
+
+

@@ -1,0 +1,108 @@
+
+Updated query as on 5th Jan 2018
+
+Select division.name as 'Division' ,zones.zonename as 'Zone Name', patches_region_update.patchname as 'Region_Name', tempzone2territoryupdate.territory_name as 'Area_Name', headquarters.hqname as 'HQ Name',users.user_name as 'Emp Name', users.employeecode as 'Emp Code',fieldworkingdays,drcallavg as 'Call_Average',class.classname as 'Class_Name' ,drsinlisttotal as 'Mcl DR' ,nooddrsmettotal as 'Mettilldate(1st to 9th DEC 2017)',drmissedtotal as 'Missedtilldate(1st to 9th DEC 2017)',class.frequency as 'Visit as per frequency(1st to 9th DEC 2017)',dcrs_main.creation_date as 'Last DCR Filed(1st to 9th DEC 2017)',nooddrsmettotal as 'Mettilldate(1st to 16th DEC 2017)',drmissedtotal as 'Missedtilldate(1st to 16th DEC 2017)',class.frequency as 'Visit as per frequency(1st to 16th DEC 2017)',dcrs_main.creation_date as 'Last DCR Filed(1st to 16th DEC 2017)',nooddrsmettotal as 'Mettilldate(1st to 23rd DEC 2017)',drmissedtotal as 'Missedtilldate(1st to 23rd DEC 2017)',class.frequency as 'Visit as per frequency(1st to 23rd DEC 2017)',dcrs_main.creation_date as 'Last DCR Filed(1st to 23rd DEC 2017)'  from adminmis
+inner join division on division.name=adminmis.division1
+inner join zones on zones.division=adminmis.division
+inner join patches_region_update on patches_region_update.division=adminmis.division
+inner join tempzone2territoryupdate on tempzone2territoryupdate.division=adminmis.division
+inner join headquarters on headquarters.hqid=adminmis.hq
+inner join users on users.division=adminmis.division
+inner join class on class.division=adminmis.division 
+inner join dcrs_main on dcrs_main.month=adminmis.month where designation='Business Executive'
+
+Updated query as on 6th Jan 2018
+
+select division.`name` as 'Division', zones.zonename as 'Zone Name', zones.zonename as 'Region Name',areas.areaname as 'Area_Name', headquarters.hqname as 'HQ Name', CONCAT_WS(' ',users.first_name,users.middle_name,users.last_name)as 'Emp Name', users.employeecode as 'Emp Code',adminmis.fieldworkingdays,adminmis.drcallavg as 'Call_Average',class.classname as 'Class_Name' ,adminmis.drsinlisttotal as 'Mcl DR' ,adminmis.nooddrsmettotal as 'Mettilldate(1st to 9th DEC 2017)',adminmis.drmissedtotal as 'Missedtilldate(1st to 9th DEC 2017)',class.frequency as 'Visit as per frequency(1st to 9th DEC 2017)',dcrs_main.creation_date as 'Last DCR Filed(1st to 9th DEC 2017)' from users 
+
+INNER JOIN division on  users.division = division.divisionid
+INNER JOIN patches on users.patch = patches.patchid
+LEFT OUTER JOIN  zones on  zones.zoneid = patches.zoneid
+LEFT OUTER JOIN  areas on areas.areaid = patches.areaid
+INNER JOIN headquarters on patches.hqid = headquarters.hqid
+INNER JOIN adminmis on adminmis.userid = users.id and adminmis.division = users.division
+INNER JOIN dcrs_main on adminmis.month=dcrs_main.month and dcrs_main.deleted=0
+INNER JOIN class on class.division=adminmis.division
+INNER JOIN user2role on  users.id = user2role.userid
+INNER JOIN role2profile on role2profile.roleid = user2role.roleid
+
+where role2profile.profileid = 5
+and  users.id = 9693
+and adminmis.month = '9' AND adminmis.year = '2017'
+group by adminmis.month,adminmis.`year`,adminmis.division,adminmis.userid,dcrs_main.creation_date
+
+Updated query as on 8th Jan 2018
+Business Executive profile
+select division.`name` as 'Division', zones.zonename as 'Zone Name', zones.zonename as 'Region Name',areas.areaname as 'Area_Name', headquarters.hqname as 'HQ Name', CONCAT_WS(' ',users.first_name,users.middle_name,users.last_name)as 'Emp Name', users.employeecode as 'Emp Code',adminmis.fieldworkingdays,adminmis.drcallavg as 'Call_Average',class.classname as 'Class_Name' ,adminmis.drsinlisttotal as 'Mcl DR' ,adminmis.nooddrsmettotal as 'Mettilldate(1st to 9th SEPT 2017)',adminmis.drmissedtotal as 'Missedtilldate(1st to 9th SEPT 2017)',class.frequency as 'Visit as per frequency(1st to 9th SEPT 2017)',dcrs_main.creation_date as 'Last DCR Filed(1st to 9th SEPT 2017)' from users 
+
+INNER JOIN division on  users.division = division.divisionid
+INNER JOIN patches on users.patch = patches.patchid
+LEFT OUTER JOIN  zones on  zones.zoneid = patches.zoneid
+LEFT OUTER JOIN  areas on areas.areaid = patches.areaid
+INNER JOIN headquarters on patches.hqid = headquarters.hqid
+INNER JOIN adminmis on adminmis.userid = users.id and adminmis.division = users.division
+INNER JOIN dcrs_main on adminmis.month=dcrs_main.month and dcrs_main.deleted=0
+INNER JOIN class on class.division=adminmis.division
+INNER JOIN user2role on  users.id = user2role.userid
+INNER JOIN role2profile on role2profile.roleid = user2role.roleid
+where role2profile.profileid = 5
+and users.id=9693
+and adminmis.month = '9' AND adminmis.year = '2017'
+group by adminmis.month,adminmis.`year`,adminmis.division,adminmis.userid,dcrs_main.creation_date
+
+
+Updated query as on 9th Jan 2018
+
+Area Business Manager profile
+
+SELECT division.`name` AS 'Division', zones.zonename AS 'Zone Name', zones.zonename AS 'Region Name', areas.areaname AS 'Area_Name', headquarters.hqname AS 'HQ Name', CONCAT_WS( ' ', users.first_name, users.middle_name, users.last_name ) AS 'Emp Name', users.employeecode AS 'Emp Code', adminmis.fieldworkingdays, adminmis.drcallavg AS 'Call_Average', class.classname AS 'Class_Name', adminmis.drsinlisttotal AS 'Mcl DR', adminmis.nooddrsmettotal AS 'Mettilldate(1st to 9th SEPT 2017)', adminmis.drmissedtotal AS 'Missedtilldate(1st to 9th SEPT 2017)', class.frequency AS 'Visit as per frequency(1st to 9th SEPT 2017)' FROM users INNER JOIN division ON users.division = division.divisionid INNER JOIN patches ON users.patch = patches.patchid LEFT OUTER JOIN zones ON zones.zoneid = patches.zoneid LEFT OUTER JOIN areas ON areas.areaid = patches.areaid INNER JOIN headquarters ON patches.hqid = headquarters.hqid INNER JOIN adminmis ON adminmis.userid = users.id AND adminmis.division = users.division INNER JOIN class ON class.division = adminmis.division INNER JOIN user2role ON users.id = user2role.userid INNER JOIN role2profile ON role2profile.roleid = user2role.roleid WHERE role2profile.profileid = 6 AND adminmis. MONTH = '9' AND adminmis. YEAR = '2017' GROUP BY adminmis. MONTH, adminmis.`year`, adminmis.division, adminmis.userid 
+
+Regional Business Manager profile
+
+SELECT
+	division.`name` AS 'Division',
+	zones.zonename AS 'Zone Name',
+	zones.zonename AS 'Region Name',
+	areas.areaname AS 'Area_Name',
+	headquarters.hqname AS 'HQ Name',
+	CONCAT_WS(
+		' ',
+		users.first_name,
+		users.middle_name,
+		users.last_name
+	) AS 'Emp Name',
+	users.employeecode AS 'Emp Code',
+	adminmis.fieldworkingdays,
+	adminmis.drcallavg AS 'Call_Average',
+	class.classname AS 'Class_Name',
+	adminmis.drsinlisttotal AS 'Mcl DR',
+	adminmis.nooddrsmettotal AS 'Mettilldate(1st to 9th SEPT 2017)',
+	adminmis.drmissedtotal AS 'Missedtilldate(1st to 9th SEPT 2017)',
+	class.frequency AS 'Visit as per frequency(1st to 9th SEPT 2017)'
+FROM
+	users
+INNER JOIN division ON users.division = division.divisionid
+INNER JOIN patches ON users.patch = patches.patchid
+LEFT OUTER JOIN zones ON zones.zoneid = patches.zoneid
+LEFT OUTER JOIN areas ON areas.areaid = patches.areaid
+INNER JOIN headquarters ON patches.hqid = headquarters.hqid
+INNER JOIN adminmis ON adminmis.userid = users.id
+AND adminmis.division = users.division
+INNER JOIN class ON class.division = adminmis.division
+INNER JOIN user2role ON users.id = user2role.userid
+INNER JOIN role2profile ON role2profile.roleid = user2role.roleid
+WHERE
+	role2profile.profileid = 7
+AND adminmis. MONTH = '9'
+AND adminmis. YEAR = '2017'
+GROUP BY
+	adminmis. MONTH,
+	adminmis.`year`,
+	adminmis.division,
+	adminmis.userid
+	
+Zonal Business Manager profile
+
+SELECT division.`name` AS 'Division', zones.zonename AS 'Zone Name', zones.zonename AS 'Region Name', areas.areaname AS 'Area_Name', headquarters.hqname AS 'HQ Name', CONCAT_WS( ' ', users.first_name, users.middle_name, users.last_name ) AS 'Emp Name', users.employeecode AS 'Emp Code', adminmis.fieldworkingdays, adminmis.drcallavg AS 'Call_Average', class.classname AS 'Class_Name', adminmis.drsinlisttotal AS 'Mcl DR', adminmis.nooddrsmettotal AS 'Mettilldate', adminmis.drmissedtotal AS 'Missedtilldate', class.frequency AS 'Visit as per frequency' FROM users INNER JOIN division ON users.division = division.divisionid INNER JOIN patches ON users.patch = patches.patchid LEFT OUTER JOIN zones ON zones.zoneid = patches.zoneid LEFT OUTER JOIN areas ON areas.areaid = patches.areaid INNER JOIN headquarters ON patches.hqid = headquarters.hqid INNER JOIN adminmis ON adminmis.userid = users.id #AND adminmis.division = users.division
+INNER JOIN class ON class.division = adminmis.division INNER JOIN user2role ON users.id = user2role.userid INNER JOIN role2profile ON role2profile.roleid = user2role.roleid WHERE role2profile.profileid = 8 #AND adminmis. MONTH = '9'
+AND adminmis. YEAR = '2017' GROUP BY adminmis. MONTH, adminmis.`year`, adminmis.division, adminmis.userid
